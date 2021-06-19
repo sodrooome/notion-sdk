@@ -1,5 +1,7 @@
 ## Python Notion
 
+![PyPI](https://img.shields.io/pypi/v/pynotion-wrapper) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pynotion-wrapper)
+
 A simple wrapper for Notion SDK written in Python
 
 ### Installation
@@ -7,7 +9,7 @@ A simple wrapper for Notion SDK written in Python
 This library only supported Python version 3.7 and above, earlier version might be work,
 but it still has backward compatibility for current APIs
 
-`pip install notion-wrapper`
+`pip install pynotion-wrapper`
 
 ### Usage
 
