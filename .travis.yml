@@ -7,5 +7,4 @@ install:
   - pip3 install codecov
   - pip3 install pytest
   - pip3 install pytest-cov
-  - pip3 install coveralls
-script: pytest --cov=tests/tests_notion_client.py
+script: pytest tests/tests_notion_client.py
