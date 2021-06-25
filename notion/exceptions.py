@@ -7,20 +7,17 @@ class CustomException(Exception):
 
 class HTTPNotFound(CustomException, ExceptionConfig):
     def __init__(self):
-        super(HTTPNotFound, self).__init__(f"Request to Notion API failed. "
-                                           f"The status code is {self.request.status_code}")
+        super(HTTPNotFound, self).__init__(f"Request to Notion API failed due resources was not found ")
 
 
 class HTTPRedirection(CustomException, ExceptionConfig):
     def __init__(self):
-        super(HTTPRedirection, self).__init__(f"Request to Notion API exceeds the limit. "
-                                              f"The Status code is {self.request.status_code}")
+        super(HTTPRedirection, self).__init__(f"Request to Notion API exceeds the limit.")
 
 
 class HTTPUnknown(CustomException, ExceptionConfig):
     def __init__(self):
-        super(HTTPUnknown, self).__init__(f"Request to Notion API failed, due to unknown status. "
-                                          f"The status code is {self.request.status_code}")
+        super(HTTPUnknown, self).__init__(f"Request to Notion API failed, due to unknown status.")
         
         
 class HTTPUnauthorized(CustomException):
@@ -31,3 +28,8 @@ class HTTPUnauthorized(CustomException):
 class ResourcesException(CustomException):
     def __init__(self):
         super(ResourcesException, self).__init__("This method / property need specify the configuration")
+
+
+class JSONDecodeError(CustomException):
+    def __init__(self):
+        super(JSONDecodeError, self).__init__("Can't decode the JSON response")
