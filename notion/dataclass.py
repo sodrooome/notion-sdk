@@ -1,4 +1,5 @@
 import requests
+from typing import List, Dict
 from dataclasses import dataclass
 
 
@@ -34,3 +35,40 @@ class NotionConfig:
 @dataclass
 class ExceptionConfig:
     request: requests
+
+
+@dataclass
+class DatabaseObjects:
+    object: str
+    result: List
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "DatabaseObjects":
+        """
+        Representation for Database instances, keep separate with JSON type
+        :param data: database object
+        :return: list of database object
+        """
+        return cls(object=data["object"], result=data["results"])
+
+
+@dataclass
+class UserObjects:
+    object: str
+    id: str
+    name: str
+    type: str
+    email: str
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "UserObjects":
+        """
+        Representation for User instances, keep separate with JSON type
+        :param data: users object
+        :return: list of users object
+        """
+        return cls(object=data["results"][0]["object"],
+                   id=data["results"][0]["id"],
+                   name=data["results"][0]["name"],
+                   type=data["results"][0]["type"],
+                   email=data["results"][0]["person"]["email"])
