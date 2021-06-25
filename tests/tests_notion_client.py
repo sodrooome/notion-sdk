@@ -52,3 +52,15 @@ def test_single_block():
     config = NotionAPI(secret, version)
     request = config.get_single_block("1")
     assert request
+
+
+def test_encapsulated_obj():
+    config = NotionAPI(secret, version)
+    request = config.get_all_users("encapsulated")
+    assert request
+
+
+def test_json_obj():
+    config = NotionAPI(secret, version)
+    request = config.get_all_users("json")
+    assert request
