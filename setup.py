@@ -20,13 +20,14 @@ setup(
 	packages=find_packages(),
 	include_package_data=True,
 	zip_safe=False,
+	url="https://github.com/sodrooome/notion-sdk",
 	classifiers=[
 		'Development Status :: 4 - Beta',
 		'Operating System :: OS Independent',
 		'Intended Audience :: Developers',
 		'Natural Language :: English',
 		'Programming Language :: Python :: 3.7',
-		'Programming Language :: Python :: 3.8'
+		'Programming Language :: Python :: 3.8',
 	],
 	python_requires='>=3.7',
 	install_requires=[
