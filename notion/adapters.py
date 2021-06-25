@@ -1,6 +1,7 @@
 import requests
 from typing import Optional, Any
-from .exceptions import HTTPNotFound, HTTPRedirection, HTTPUnknown, HTTPUnauthorized
+from .exceptions import HTTPNotFound, HTTPRedirection, HTTPUnknown, HTTPUnauthorized, JSONDecodeError
+from .enum import HTTPStatus
 
 
 def adapter(fullpath, headers, *args: Optional) -> Any:
@@ -11,13 +12,22 @@ def adapter(fullpath, headers, *args: Optional) -> Any:
     :param args: optional arguments
     :return: generate low HTTP request into Notion APIs
     """
-    request = requests.get(fullpath, headers=headers)
-    if request.status_code == 200:
-        return request.json()
-    elif request.status_code == 404:
+    try:
+        request = requests.get(fullpath, headers=headers)
+    except Exception:
+        raise HTTPUnknown
+    if request.status_code == HTTPStatus.NOT_FOUND:
         raise HTTPNotFound
-    elif request.status_code == 429:
+    elif request.status_code == HTTPStatus.TOO_MANY_REQUESTS:
         raise HTTPRedirection
-    elif request.status_code == 401:
+    elif request.status_code == HTTPStatus.UNAUTHORIZED:
         raise HTTPUnauthorized
-    raise HTTPUnknown
+    else:
+        try:
+            json_object = request.json()
+        except Exception:
+            raise JSONDecodeError
+        finally:
+            pass
+    return json_object
+
