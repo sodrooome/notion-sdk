@@ -1,21 +1,18 @@
-from .dataclass import ExceptionConfig
-
-
 class CustomException(Exception):
     pass
 
 
-class HTTPNotFound(CustomException, ExceptionConfig):
+class HTTPNotFound(CustomException):
     def __init__(self):
         super(HTTPNotFound, self).__init__(f"Request to Notion API failed due resources was not found ")
 
 
-class HTTPRedirection(CustomException, ExceptionConfig):
+class HTTPRedirection(CustomException):
     def __init__(self):
         super(HTTPRedirection, self).__init__(f"Request to Notion API exceeds the limit.")
 
 
-class HTTPUnknown(CustomException, ExceptionConfig):
+class HTTPUnknown(CustomException):
     def __init__(self):
         super(HTTPUnknown, self).__init__(f"Request to Notion API failed, due to unknown status.")
         
