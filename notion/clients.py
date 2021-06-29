@@ -2,27 +2,20 @@ from typing import Any
 from .dataclass import NotionConfig, DatabaseObjects, UserObjects
 from .adapters import adapter
 from .utils import composed_dict
-from .exceptions import JSONDecodeError
 
 
 class NotionAPI(NotionConfig):
-    def get_all_db(self, result: str = "json", **kwargs: Any) -> Any:
+    def get_all_db(self, **kwargs: Any) -> Any:
         """
         Retrieve all database in the workspace
         :param kwargs: arguments for selector "start_cursor" and "page_size"
-        :param result: parameters for select output value. default value is JSON
         :return: Any of object
         """
         fullpath = self.endpoint + "databases"
         headers = {"Authorization": f"Bearer {self.token}", "Notion-Version": self.notion_version}
         selector = composed_dict(kwargs, "start_cursor", "page_size")
         request = adapter(fullpath, headers, selector)
-
-        if result.lower() == "json":
-            return request
-        elif result.lower() == "encapsulated":
-            return DatabaseObjects.from_dict(request)
-        raise JSONDecodeError
+        return request
 
     def get_single_db(self, database_id: str):
         """
@@ -70,20 +63,32 @@ class NotionAPI(NotionConfig):
         request = adapter(fullpath, headers)
         return request
 
-    def get_all_users(self, result: str = "json", **kwargs: Any):
+    def get_all_users(self, **kwargs: Any):
         """
         Retrieve all users
         :param kwargs: arguments for selector "start_cursor" and "page_size"
-        :param result: parameters for select output value. default value is JSON
         :return: Any of object
         """
         fullpath = self.endpoint + "users"
         headers = {"Authorization": f"Bearer {self.token}", "Notion-Version": self.notion_version}
         selector = composed_dict(kwargs, "start_cursor", "page_size")
         request = adapter(fullpath, headers, selector)
+        return request
 
-        if result.lower() == "json":
-            return request
-        elif result.lower() == "encapsulated":
-            return UserObjects.from_dict(request)
-        raise JSONDecodeError
+    @property
+    def get_users_instances(self):
+        """
+        Property method for get users objects instance
+        :return: List of user objects
+        """
+        data = self.get_all_users()
+        return UserObjects.from_dict(data)
+
+    @property
+    def get_db_instances(self):
+        """
+        Property method for get database objects instance
+        :return: List of database objects
+        """
+        data = self.get_all_db()
+        return DatabaseObjects.from_dict(data)
