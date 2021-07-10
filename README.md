@@ -34,7 +34,7 @@ That following result something like :
 ```
 
 This wrapper also providing `dict` representation, so it will be separate with JSON type and returned as List for relevant
-object instances. For example, you can use this in `get_all_users()` and `get_all_db()` method :
+object instances. For example, you can use this property method for retrieve all users information and db information :
 
 ```python
 from notion.clients import NotionAPI
@@ -42,11 +42,11 @@ from notion.clients import NotionAPI
 version = "2021-05-13"
 secret = "YOUR_NOTION_TOKEN"
 client = NotionAPI(secret, version)
-print(client.get_all_users("encapsulated")) # options are `JSON` and `encapsulated`
+print(client.get_users_instances) # method for getting all user instances
+print(client.get_db_instances) # method for getting all db instances
 ```
 
-If you choose in parameters for that method to `json` the output will be the same as like in the above, but if you choose
-parameters as `encapsulated` the returned value will be more simple rather than extensive output like in `dict` type :
+the returned value if using property method will be more simple rather than extensive output like in JSON based :
 
 ```shell
 # encapsulated types
