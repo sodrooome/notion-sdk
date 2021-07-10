@@ -15,52 +15,52 @@ def test_adapter():
         "Notion-Version": version
     }
     request = adapter("https://api.notion.com/v1/databases", headers)
-    return True if request == 200 else False
+    assert True if request else False
 
 
 def test_db_success():
     config = NotionAPI(secret, version)
     request = config.get_all_db()
-    assert request
+    assert True if request else False
 
 
 def test_single_db_success():
     config = NotionAPI(secret, version)
     request = config.get_single_db("a")
-    assert request
+    assert True if request else False
 
 
 def test_users_success():
     config = NotionAPI(secret, version)
     request = config.get_all_users()
-    assert request
+    assert True if request else False
 
 
 def test_single_user():
     config = NotionAPI(secret, version)
     request = config.get_single_user("32")
-    assert request
+    assert True if request else False
 
 
 def test_single_page():
     config = NotionAPI(secret, version)
     request = config.get_single_page("1")
-    assert request
+    assert True if request else False
 
 
 def test_single_block():
     config = NotionAPI(secret, version)
     request = config.get_single_block("1")
-    assert request
+    assert True if request else False
 
 
-def test_encapsulated_obj():
+def test_get_user_instances():
     config = NotionAPI(secret, version)
-    request = config.get_all_users("encapsulated")
-    assert request
+    request = config.get_users_instances
+    assert True if request else False
 
 
-def test_json_obj():
+def test_get_db_instances():
     config = NotionAPI(secret, version)
-    request = config.get_all_users("json")
-    assert request
+    request = config.get_db_instances
+    assert True if request else False
