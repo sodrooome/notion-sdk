@@ -1,5 +1,5 @@
 from typing import Any
-from .dataclass import NotionConfig, DatabaseObjects, UserObjects
+from .models import NotionConfig, DatabaseObjects, UserObjects
 from .adapters import adapter
 from .utils import composed_dict
 
@@ -11,7 +11,7 @@ class NotionAPI(NotionConfig):
         :param kwargs: arguments for selector "start_cursor" and "page_size"
         :return: Any of object
         """
-        fullpath = self.endpoint + "databases"
+        fullpath = self.endpoint + "/databases"
         headers = {"Authorization": f"Bearer {self.token}", "Notion-Version": self.notion_version}
         selector = composed_dict(kwargs, "start_cursor", "page_size")
         request = adapter(fullpath, headers, selector)
@@ -69,7 +69,7 @@ class NotionAPI(NotionConfig):
         :param kwargs: arguments for selector "start_cursor" and "page_size"
         :return: Any of object
         """
-        fullpath = self.endpoint + "users"
+        fullpath = self.endpoint + "/users"
         headers = {"Authorization": f"Bearer {self.token}", "Notion-Version": self.notion_version}
         selector = composed_dict(kwargs, "start_cursor", "page_size")
         request = adapter(fullpath, headers, selector)

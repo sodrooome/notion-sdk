@@ -1,5 +1,4 @@
-import requests
-from typing import List, Dict
+from typing import List
 from dataclasses import dataclass
 
 
@@ -7,7 +6,7 @@ from dataclasses import dataclass
 class BaseNotionConfig:
     token: str
     notion_version: str
-    endpoint: str = "https://api.notion.com/v1/"
+    endpoint: str = "https://api.notion.com/v1"
 
 
 @dataclass
@@ -18,7 +17,7 @@ class NotionConfig:
     __slots__ = ["token", "notion_version"]
     token: str
     notion_version: str
-    endpoint: str = "https://api.notion.com/v1/"
+    endpoint: str = "https://api.notion.com/v1"
 
     def __post_init__(self):
         if self.notion_version and self.token is None:
@@ -30,11 +29,6 @@ class NotionConfig:
         :return: returned as string object
         """
         return f"Your Notion Token is {self.token} and version usage is {self.notion_version}"
-
-
-@dataclass
-class ExceptionConfig:
-    request: requests
 
 
 @dataclass

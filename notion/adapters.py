@@ -1,7 +1,7 @@
-import requests
+from requests import get
 from typing import Optional, Any
 from .exceptions import HTTPNotFound, HTTPRedirection, HTTPUnknown, HTTPUnauthorized, JSONDecodeError
-from .enum import HTTPStatus
+from .http_status import HTTPStatus
 
 
 def adapter(fullpath, headers, *args: Optional) -> Any:
@@ -13,7 +13,7 @@ def adapter(fullpath, headers, *args: Optional) -> Any:
     :return: generate low HTTP request into Notion APIs
     """
     try:
-        request = requests.get(fullpath, headers=headers)
+        request = get(fullpath, headers=headers)
     except Exception:
         raise HTTPUnknown
     if request.status_code == HTTPStatus.NOT_FOUND:
